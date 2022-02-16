@@ -1,6 +1,14 @@
+import os
 import random
 from termcolor import cprint, colored
 
+APP_NAME = "PYRDLE"
+VERSION = "1.1.2"
+
+if os.name in ["nt", "dos"]:
+    os.system("cls")
+else:
+    os.system("clear")
 
 with open("words") as f:
     words = [word.strip("\n") for word in f.readlines()]
@@ -44,6 +52,9 @@ def take_guess():
         cprint("INVAL", "grey", "on_red")
 
 
+cprint(f"{APP_NAME}", "grey", "on_green", end="")
+cprint(" ", "grey", "on_white", end="")
+cprint(f"v{VERSION}\n", "grey", "on_yellow")
 while guesses:
     take_guess()
     if answer_list == [0, 0, 0, 0, 0]:
