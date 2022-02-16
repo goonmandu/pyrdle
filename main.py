@@ -3,14 +3,16 @@ import random
 from termcolor import cprint, colored
 
 APP_NAME = "PYRDLE"
-VERSION = "1.1.2"
+VERSION = "1.1.3"
+WORD_FILE = "wordle"
+# WORD_FILE = "words"
 
 if os.name in ["nt", "dos"]:
     os.system("cls")
 else:
     os.system("clear")
 
-with open("words") as f:
+with open(WORD_FILE) as f:
     words = [word.strip("\n") for word in f.readlines()]
 
 answer = random.choice(words)
@@ -53,8 +55,9 @@ def take_guess():
 
 
 cprint(f"{APP_NAME}", "grey", "on_green", end="")
-cprint(" ", "grey", "on_white", end="")
-cprint(f"v{VERSION}\n", "grey", "on_yellow")
+cprint(f"v{VERSION}", "grey", "on_yellow", end="")
+cprint(f"{WORD_FILE}\n", "grey", "on_white")
+
 while guesses:
     take_guess()
     if answer_list == [0, 0, 0, 0, 0]:
