@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import random
 from termcolor import cprint, colored
 
@@ -7,7 +8,7 @@ from termcolor import cprint, colored
 REL_PATH = os.path.dirname(__file__)
 FILES = [f for f in os.listdir(REL_PATH) if os.path.isfile(os.path.join(REL_PATH, f)) and f not in ["LICENSE", "README.md"] and not f.endswith(".py")]
 APP_NAME = "PYRDLE"
-VERSION = "1.2.4"
+VERSION = "1.3.0"
 WORD_FILE = None
 
 
@@ -75,12 +76,17 @@ def take_guess():
         for index, char in enumerate(guess_list):
             if char:
                 char_list[index] = colored(guess[index].upper(), "grey", "on_white")
-        cprint("".join(char_list))
+        cprint(f"\033[1A{''.join(char_list)}")
         guesses -= 1
     elif len(guess) != 5:
-        cprint("FIVE!", "grey", "on_red")
+        cprint("\033[1AFIVE!", "grey", "on_red", end="")
+        print(" " * (len(guess) - 5) if len(guess) > 5 else "", end="\r")
+        time.sleep(1)
+        print("     ", end="\r")
     else:
-        cprint("INVAL", "grey", "on_red")
+        cprint("\033[1AINVAL", "grey", "on_red", end="\r")
+        time.sleep(1)
+        print("     ", end="\r")
 
 
 clear_console()
