@@ -8,7 +8,7 @@ from termcolor import cprint, colored
 REL_PATH = os.path.dirname(__file__)
 FILES = [f for f in os.listdir(REL_PATH) if os.path.isfile(os.path.join(REL_PATH, f)) and f not in ["LICENSE", "README.md"] and not f.endswith(".py")]
 APP_NAME = "PYRDLE"
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 WORD_FILE = None
 
 
@@ -99,5 +99,6 @@ while guesses:
     if take_guess() or answer_list == [0, 0, 0, 0, 0]:
         break
 print()
-cprint("WORD:", "grey", "on_magenta")
-cprint(answer.upper(), "grey", "on_cyan")
+if answer_list != [0, 0, 0, 0, 0]:
+    cprint("WORD:", "grey", "on_magenta")
+    cprint(answer.upper(), "grey", "on_cyan")
