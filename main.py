@@ -8,8 +8,8 @@ from termcolor import cprint, colored
 REL_PATH = os.path.dirname(__file__)
 FILES = [f for f in os.listdir(REL_PATH) if os.path.isfile(os.path.join(REL_PATH, f)) and f not in ["LICENSE", "README.md"] and not f.endswith(".py")]
 APP_NAME = "PYRDLE"
-VERSION = "1.3.1"
-WORD_FILE = None
+VERSION = "1.4.1"
+word_file = None
 
 
 def clear_console():
@@ -20,27 +20,30 @@ def clear_console():
 
 
 def ask_in_console():
-    global WORD_FILE
+    global word_file
     clear_console()
     print(f"Wordsets: {', '.join(FILES)}")
-    WORD_FILE = input("Pick a wordset: ")
-    if WORD_FILE not in FILES:
+    word_file = input("Pick a wordset: ")
+    if word_file not in FILES:
         ask_in_console()
 
 
 def ask_wordset():
-    global WORD_FILE
+    global word_file
     clear_console()
     if len(sys.argv) < 2:
         ask_in_console()
     elif sys.argv[1] in FILES:
-        WORD_FILE = sys.argv[1]
+        word_file = sys.argv[1]
     else:
         ask_in_console()
 
 
+# os.system('mode con: cols=22 lines=14')
+# TODO: Fix automatic console window resizing
+
 ask_wordset()
-with open(WORD_FILE) as f:
+with open(word_file) as f:
     words = [word.strip("\n") for word in f.readlines()]
 
 answer = random.choice(words)
@@ -93,7 +96,7 @@ clear_console()
 
 cprint(f"{APP_NAME}", "grey", "on_green", end="")
 cprint(f"v{VERSION}", "grey", "on_yellow", end="")
-cprint(f"{WORD_FILE}\n", "grey", "on_white")
+cprint(f"{word_file}\n", "grey", "on_white")
 
 while guesses:
     if take_guess() or answer_list == [0, 0, 0, 0, 0]:
