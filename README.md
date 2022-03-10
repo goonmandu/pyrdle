@@ -7,7 +7,7 @@ Tested with Python 3.9 and 3.10.
 # how to play
 Run it in the terminal, like this:
 ```
-~/pyrdle-main/python3 main.py [wordset]
+PATH_TO_DIRECTORY/pyrdle/python3 main.py [wordset]
 ```
 If no wordset argument is passed in, or the argument is not in the wordset list, the game will prompt you to choose a wordset.
 Otherwise, the game will automatically start with the given wordset name.
