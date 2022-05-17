@@ -6,9 +6,10 @@ from termcolor import cprint, colored
 
 
 REL_PATH = os.path.dirname(__file__)
-FILES = [f for f in os.listdir(REL_PATH) if os.path.isfile(os.path.join(REL_PATH, f)) and f not in ["LICENSE", "README.md"] and not f.endswith(".py")]
+WORDSET_PATH = f"{REL_PATH}/wordsets"
+FILES = [f for f in os.listdir(WORDSET_PATH) if os.path.isfile(os.path.join(WORDSET_PATH, f))]
 APP_NAME = "PYRDLE"
-VERSION = "1.4.1"
+VERSION = "1.4.3"
 word_file = None
 
 
@@ -43,7 +44,7 @@ def ask_wordset():
 # TODO: Fix automatic console window resizing
 
 ask_wordset()
-with open(word_file) as f:
+with open(f"{WORDSET_PATH}/{word_file}") as f:
     words = [word.strip("\n") for word in f.readlines()]
 
 answer = random.choice(words)
@@ -65,6 +66,7 @@ def take_guess():
     guess_list = [ltr for ltr in guess]
     if guess == "?????":
         return True
+    # DEBUG if len(guess) == 5:
     if len(guess) == 5 and guess in words:
         for index in range(5):
             if answer[index] == guess[index]:
@@ -74,7 +76,7 @@ def take_guess():
         for index, char in enumerate(guess_list):
             if char in answer_list:
                 char_list[index] = colored(guess[index].upper(), "grey", "on_yellow")
-                answer_list[answer_list.index(char)] = 0
+                answer_list[answer_list.index(char)] = None
                 guess_list[index] = None
         for index, char in enumerate(guess_list):
             if char:
