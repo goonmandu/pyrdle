@@ -50,7 +50,7 @@ def evaluate_guess(guess, against) -> list[int]:
     guess = guess.lower()
     against = against.lower()
     letters_left_in_answer = [ltr for ltr in against]
-    evaluation = [0] * 5
+    evaluation = [0] * len(against)
     # Check for green matches first so that yellows do not eat up green letters
     # Greens are 2, Yellows are 1, and Grays are 0
     for idx, ltr in enumerate(guess):
@@ -80,7 +80,7 @@ while True:
         # Show answer and exit
         cprint(answer.upper(), "grey", "on_magenta")
         break
-    char_list = [] * 5
+    char_list = [] * len(answer)
     user_guess = input()
 
     # If the user requests the answer,
@@ -89,11 +89,11 @@ while True:
         cprint(answer.upper(), "grey", "on_magenta")
         break
 
-    # If the guess length is not 5,
-    if len(user_guess) != 5:
+    # If the guess length is not appropriate,
+    if len(user_guess) != len(answer):
         # Print warning and let user guess again
-        cprint("\033[1AFIVE!", "grey", "on_red", end="")
-        print(" " * (len(user_guess) - 5) if len(user_guess) > 5 else "", end="\r")
+        cprint("\033[1ALNGTH", "grey", "on_red", end="")
+        print(" " * (len(user_guess) - len(answer)) if len(user_guess) > len(answer) else "", end="\r")
         time.sleep(1)
         print("     ", end="\r")
         continue
@@ -106,7 +106,7 @@ while True:
         print("     ", end="\r")
         continue
 
-    # If the guess is a valid 5 letter word, evaluate
+    # If the guess is a valid len(answer) letter word, evaluate
     result = evaluate_guess(user_guess, answer)
     tries -= 1
 
@@ -123,6 +123,6 @@ while True:
     cprint(f"\033[1A{''.join(char_list)}")
 
     # If the user guessed correctly,
-    if result == [2] * 5:
+    if result == [2] * len(answer):
         # Exit
         break
