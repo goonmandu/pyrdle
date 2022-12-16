@@ -4,12 +4,11 @@ import time
 import random
 from termcolor import cprint, colored
 
-
 REL_PATH = os.path.dirname(__file__)
 WORDSET_PATH = f"{REL_PATH}/wordsets"
 FILES = [f for f in os.listdir(WORDSET_PATH) if os.path.isfile(os.path.join(WORDSET_PATH, f))]
-APP_NAME = "PYRDLE(DEPR.)"
-VERSION = "1.4.3"
+APP_NAME = "PYRDLE"
+VERSION = "1.4.3 (Deprecated)"
 word_file = None
 
 
@@ -97,6 +96,9 @@ def take_guess():
 
 clear_console()
 
+print("Warning: This version of Pyrdle is deprecated.")
+print("It has numerous bugs which will not be fixed.")
+print("For a bug-free experience, run main.py.")
 cprint(f"{APP_NAME}", "grey", "on_green", end="")
 cprint(f"v{VERSION}", "grey", "on_yellow", end="")
 cprint(f"{word_file}\n", "grey", "on_white")
