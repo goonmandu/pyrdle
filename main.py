@@ -4,11 +4,14 @@ import time
 import random
 from termcolor import cprint, colored
 
+
 REL_PATH = os.path.dirname(__file__)
 WORDSET_PATH = f"{REL_PATH}/wordsets"
-FILES = [f for f in os.listdir(WORDSET_PATH) if os.path.isfile(os.path.join(WORDSET_PATH, f))]
+FILES = [f for f in os.listdir(WORDSET_PATH)
+         if os.path.isfile(os.path.join(WORDSET_PATH, f))
+         and not f.endswith((".txt", ".py"))]
 APP_NAME = "PYRDLE"
-VERSION = "2.0.1"
+VERSION = "2.1.0"
 word_file = None
 tries = 6
 
@@ -71,6 +74,7 @@ with open(f"{WORDSET_PATH}/{word_file}") as f:
     words = [word.strip("\n") for word in f.readlines()]
 
 answer = random.choice(words)
+answerlen = len(answer)
 
 print_app_header()
 
@@ -80,8 +84,9 @@ while True:
         # Show answer and exit
         cprint(answer.upper(), "grey", "on_magenta")
         break
-    char_list = [] * len(answer)
+    char_list = [] * answerlen
     user_guess = input()
+    guesslen = len(user_guess)
 
     # If the user requests the answer,
     if user_guess == "?????":
@@ -90,10 +95,10 @@ while True:
         break
 
     # If the guess length is not appropriate,
-    if len(user_guess) != len(answer):
+    if len(user_guess) != answerlen:
         # Print warning and let user guess again
-        cprint("\033[1ALNGTH", "grey", "on_red", end="")
-        print(" " * (len(user_guess) - len(answer)) if len(user_guess) > len(answer) else "", end="\r")
+        cprint("\033[1ALNGTH" + " " * (answerlen - 5), "grey", "on_red", end="")
+        print(" " * (guesslen - answerlen) if guesslen > answerlen else "", end="\r")
         time.sleep(1)
         print("     ", end="\r")
         continue
@@ -101,9 +106,9 @@ while True:
     # If the guessed word is not in the chosen wordset:
     if user_guess not in words:
         # Print warning and let user guess again
-        cprint("\033[1AINVAL", "grey", "on_red", end="\r")
+        cprint("\033[1AINVAL" + " " * (answerlen - 5), "grey", "on_red", end="\r")
         time.sleep(1)
-        print("     ", end="\r")
+        print(" " * answerlen, end="\r")
         continue
 
     # If the guess is a valid len(answer) letter word, evaluate
@@ -123,6 +128,6 @@ while True:
     cprint(f"\033[1A{''.join(char_list)}")
 
     # If the user guessed correctly,
-    if result == [2] * len(answer):
+    if result == [2] * answerlen:
         # Exit
         break
