@@ -76,6 +76,7 @@ with open(f"{WORDSET_PATH}/{word_file}") as f:
 answer = random.choice(words)
 answerlen = len(answer)
 
+clear_console()
 print_app_header()
 
 while True:
