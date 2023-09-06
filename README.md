@@ -24,7 +24,7 @@ termcolor: `pip install termcolor`
 
 # attributions
 - Wordle wordset (`./wordsets/wordle`): Kinkelin, https://github.com/Kinkelin/WordleCompetition/blob/main/data/official/combined_wordlist.txt.
-  - Adapted under the CC-BY-SA 3.0 International license:
+  - Adapted under the CC-BY-SA 3.0 Unported license:
     - Deleted comment on first line.
 
 # screenshots (outdated)
