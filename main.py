@@ -9,9 +9,9 @@ REL_PATH = os.path.dirname(__file__)
 WORDSET_PATH = f"{REL_PATH}/wordsets"
 FILES = [f for f in os.listdir(WORDSET_PATH)
          if os.path.isfile(os.path.join(WORDSET_PATH, f))
-         and not f.endswith((".txt", ".py"))]
+         and not f.endswith((".txt", ".py", "LICENSE"))]
 APP_NAME = "PYRDLE"
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 word_file = None
 tries = 6
 
